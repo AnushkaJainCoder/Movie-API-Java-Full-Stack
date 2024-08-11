@@ -1,6 +1,10 @@
 .movie-carousel-container{
     width: 100vw;
     background-color: black;
+    /* .movie-carousel-container { */
+        overflow: hidden; /* Prevent any overflow */
+    /* } */
+    
 }
 .movie-poster{
     height: 300px;
@@ -52,7 +56,7 @@
 .play-button-icon{
     padding:0px;
     margin:0px;
-    color:gold;
+    color:rgb(255, 174, 0);
     font-size: 3rem;
     transition: 0.3s;
     cursor: pointer;

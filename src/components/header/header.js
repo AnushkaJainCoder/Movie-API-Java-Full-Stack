@@ -13,7 +13,7 @@ return (
         <Container fluid>
             <Navbar.Brand href="/" style={{"color":'red'}}>
                 {/* <FontAwesomeIcon icon ={faVideoSlash}/> */}
-                Netflix
+                Jetflix
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Navbar.Collapse id="navbarScroll">

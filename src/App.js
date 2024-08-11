@@ -1,30 +1,57 @@
 import logo from './logo.svg';
 import './App.css';
 import api from './api/axiosConfig'
-import layout, { Layout } from './components/Layout'
+import Layout from './components/Layout'
 import {Routes, Route} from 'react-router-dom'
 import Home from './components/home/Home'
 
 import { useState, useEffect } from 'react';
 import Header from './components/header/header';
 import Trailer from './components/Trailer/trailer';
+import Reviews from './components/reviews/reviews';
 
 function App() {
 
   const [movies, setMovies] = useState();
-  const getMovies = async() => {
+  const [movie, setMovie] = useState();
+  const [reviews, setReviews] = useState([]);
 
-    try {
+  const getMovies = async () =>{
+    
+    try
+    {
 
-      const res = await api.get("/api/vi/movies");
-      console.log(res.data);
-      setMovies(res.data);
+      const response = await api.get("/api/vi/movies");
 
-    } catch (error) {
+      setMovies(response.data);
 
-      console.log(error);
-
+    } 
+    catch(err)
+    {
+      console.log(err);
     }
+  }
+
+  const getMovieData = async (movieId) => {
+     
+    try 
+    {
+        const response = await api.get(`/api/vi/movies/${movieId}`);
+
+        const singleMovie = response.data;
+
+        setMovie(singleMovie);
+        console.log("singleMovie", singleMovie);
+
+        setReviews(singleMovie.reviewIds || []);
+        
+
+    } 
+    catch (error) 
+    {
+      console.error(error);
+    }
+
   }
 
   useEffect(() => {
@@ -33,14 +60,16 @@ function App() {
 
   return (
     <div className="App">
-      <Header></Header>
+      <Header/>
       <Routes>
-        <Route path="/" element={<Layout />} >
-          <Route path="/"  element= {<Home movies={movies} />} ></Route>
-          <Route path='/Trailer/:ytTrailerId' element={<Trailer />}></Route>
-
-        </Route>
+          <Route path="/" element={<Layout/>}>
+            <Route path="/" element={<Home movies={movies} />} ></Route>
+            <Route path="/Trailer/:ytTrailerId" element={<Trailer/>}></Route>
+            <Route path="/Reviews/:movieId" element ={<Reviews getMovieData = {getMovieData} movie={movie} reviews ={reviews} setReviews = {setReviews} />}></Route>
+            {/* <Route path="*" element = {<NotFound/>}></Route> */}
+          </Route>
       </Routes>
+
     </div>
   );
 }
