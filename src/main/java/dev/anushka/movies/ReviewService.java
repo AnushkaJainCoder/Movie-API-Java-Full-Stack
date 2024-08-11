@@ -6,11 +6,16 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ReviewService {
 
     @Autowired
     private ReviewRepository reviewRepository;
+
+    private MovieRepository movieRepository;
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -24,4 +29,17 @@ public class ReviewService {
         return rev;
 
     }
+
+//    public List<Reviews> getReviewsByImdbId(String imdbId){
+//        Optional<Movie> movieOpt = movieRepository.findMovieByImdbId(imdbId);
+//        if(movieOpt.isPresent()){
+//            Movie movie = movieOpt.get();
+//            return movie.getReviewIds();
+//        }
+//        return List.of();
+//    }
+
+//    public Optional<Reviews> singleMovie(String imdb){
+//        return reviewRepository.findMovieByImdbId(imdb);
+//    }
 }
